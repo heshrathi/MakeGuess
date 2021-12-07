@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.InputStream;
@@ -14,12 +15,12 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
 
     //background running class using async extension
-    public class backgroundData extends AsyncTask<String, Void, String> {
+    public class BackgroundData extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... urls) {
             HttpURLConnection connection = null;
-            URL url = null;
+            URL url;
             String result = null;
 
             try {
@@ -52,11 +53,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        backgroundData backgroundData = new backgroundData();
+        BackgroundData backgroundData = new BackgroundData();
         String result = null;
 
         try {
-            result = backgroundData.execute("https://www.google.com").get();
+            result = backgroundData.execute("https://www.facebook.com").get();
+            Log.i("Result from website: ", result);
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
